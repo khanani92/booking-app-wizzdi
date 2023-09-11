@@ -20,6 +20,7 @@ public class EntitiesConfiguration {
                 com.flexicore.model.Baselink.class,
                 com.flexicore.model.Basic.class,
                 com.flexicore.model.Clazz.class,
+                com.wizzdi.flexicore.file.model.FileResource.class,
                 com.flexicore.model.OperationCategory.class,
                 com.flexicore.model.OperationToClazz.class,
                 com.flexicore.model.PermissionGroup.class,
@@ -37,6 +38,8 @@ public class EntitiesConfiguration {
                 com.flexicore.model.SecurityWildcard.class,
                 com.flexicore.model.TenantToBaseClassPremission.class,
                 com.flexicore.model.TenantToUser.class,
-                com.flexicore.model.UserToBaseClass.class)));
+                com.flexicore.model.UserToBaseClass.class,
+                com.wizzdi.flexicore.file.model.ZipFile.class,
+                com.wizzdi.flexicore.file.model.ZipFileToFileResource.class)));
   }
 }

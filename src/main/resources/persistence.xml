@@ -18,6 +18,12 @@
             
                 <class>com.muddassir_92.hotmail.com.runtime.model.AppUser</class>
             
+                <class>com.muddassir_92.hotmail.com.runtime.model.Service</class>
+            
+                <class>com.muddassir_92.hotmail.com.runtime.model.ServiceProvider</class>
+            
+                <class>com.muddassir_92.hotmail.com.runtime.model.User</class>
+            
 
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
     </persistence-unit>

@@ -3,9 +3,9 @@ package com.muddassir_92.hotmail.com.runtime.data;
 import com.flexicore.model.Baseclass;
 import com.flexicore.model.Basic;
 import com.flexicore.security.SecurityContextBase;
-import com.muddassir_92.hotmail.com.runtime.model.Admin;
-import com.muddassir_92.hotmail.com.runtime.model.Admin_;
-import com.muddassir_92.hotmail.com.runtime.request.AdminFilter;
+import com.muddassir_92.hotmail.com.runtime.model.User;
+import com.muddassir_92.hotmail.com.runtime.model.User_;
+import com.muddassir_92.hotmail.com.runtime.request.UserFilter;
 import com.wizzdi.flexicore.file.model.FileResource;
 import com.wizzdi.flexicore.file.model.FileResource_;
 import com.wizzdi.flexicore.security.data.BasicRepository;
@@ -24,32 +24,32 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
-public class AdminRepository {
+public class UserRepository {
   @PersistenceContext private EntityManager em;
 
   @Autowired private SecuredBasicRepository securedBasicRepository;
 
   /**
-   * @param adminFilter Object Used to List Admin
+   * @param userFilter Object Used to List User
    * @param securityContext
-   * @return List of Admin
+   * @return List of User
    */
-  public List<Admin> listAllAdmins(AdminFilter adminFilter, SecurityContextBase securityContext) {
+  public List<User> listAllUsers(UserFilter userFilter, SecurityContextBase securityContext) {
     CriteriaBuilder cb = em.getCriteriaBuilder();
-    CriteriaQuery<Admin> q = cb.createQuery(Admin.class);
-    Root<Admin> r = q.from(Admin.class);
+    CriteriaQuery<User> q = cb.createQuery(User.class);
+    Root<User> r = q.from(User.class);
     List<Predicate> preds = new ArrayList<>();
-    addAdminPredicate(adminFilter, cb, q, r, preds, securityContext);
-    q.select(r).where(preds.toArray(new Predicate[0])).orderBy(cb.desc(r.get(Admin_.creationDate)));
-    TypedQuery<Admin> query = em.createQuery(q);
+    addUserPredicate(userFilter, cb, q, r, preds, securityContext);
+    q.select(r).where(preds.toArray(new Predicate[0])).orderBy(cb.desc(r.get(User_.creationDate)));
+    TypedQuery<User> query = em.createQuery(q);
 
-    BasicRepository.addPagination(adminFilter, query);
+    BasicRepository.addPagination(userFilter, query);
 
     return query.getResultList();
   }
 
-  public <T extends Admin> void addAdminPredicate(
-      AdminFilter adminFilter,
+  public <T extends User> void addUserPredicate(
+      UserFilter userFilter,
       CriteriaBuilder cb,
       CommonAbstractCriteria q,
       From<?, T> r,
@@ -57,41 +57,41 @@ public class AdminRepository {
       SecurityContextBase securityContext) {
 
     this.securedBasicRepository.addSecuredBasicPredicates(
-        adminFilter.getBasicPropertiesFilter(), cb, q, r, preds, securityContext);
+        userFilter.getBasicPropertiesFilter(), cb, q, r, preds, securityContext);
 
-    if (adminFilter.getGender() != null && !adminFilter.getGender().isEmpty()) {
-      preds.add(r.get(Admin_.gender).in(adminFilter.getGender()));
+    if (userFilter.getBlock() != null && !userFilter.getBlock().isEmpty()) {
+      preds.add(r.get(User_.block).in(userFilter.getBlock()));
     }
 
-    if (adminFilter.getBlock() != null && !adminFilter.getBlock().isEmpty()) {
-      preds.add(r.get(Admin_.block).in(adminFilter.getBlock()));
-    }
-
-    if (adminFilter.getEmail() != null && !adminFilter.getEmail().isEmpty()) {
-      preds.add(r.get(Admin_.email).in(adminFilter.getEmail()));
-    }
-
-    if (adminFilter.getProfilePictures() != null && !adminFilter.getProfilePictures().isEmpty()) {
+    if (userFilter.getProfilePictures() != null && !userFilter.getProfilePictures().isEmpty()) {
       Set<String> ids =
-          adminFilter.getProfilePictures().parallelStream()
+          userFilter.getProfilePictures().parallelStream()
               .map(f -> f.getId())
               .collect(Collectors.toSet());
-      Join<T, FileResource> join = r.join(Admin_.profilePicture);
+      Join<T, FileResource> join = r.join(User_.profilePicture);
       preds.add(join.get(FileResource_.id).in(ids));
+    }
+
+    if (userFilter.getGender() != null && !userFilter.getGender().isEmpty()) {
+      preds.add(r.get(User_.gender).in(userFilter.getGender()));
+    }
+
+    if (userFilter.getEmail() != null && !userFilter.getEmail().isEmpty()) {
+      preds.add(r.get(User_.email).in(userFilter.getEmail()));
     }
   }
 
   /**
-   * @param adminFilter Object Used to List Admin
+   * @param userFilter Object Used to List User
    * @param securityContext
-   * @return count of Admin
+   * @return count of User
    */
-  public Long countAllAdmins(AdminFilter adminFilter, SecurityContextBase securityContext) {
+  public Long countAllUsers(UserFilter userFilter, SecurityContextBase securityContext) {
     CriteriaBuilder cb = em.getCriteriaBuilder();
     CriteriaQuery<Long> q = cb.createQuery(Long.class);
-    Root<Admin> r = q.from(Admin.class);
+    Root<User> r = q.from(User.class);
     List<Predicate> preds = new ArrayList<>();
-    addAdminPredicate(adminFilter, cb, q, r, preds, securityContext);
+    addUserPredicate(userFilter, cb, q, r, preds, securityContext);
     q.select(cb.count(r)).where(preds.toArray(new Predicate[0]));
     TypedQuery<Long> query = em.createQuery(q);
     return query.getSingleResult();

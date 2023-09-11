@@ -83,6 +83,16 @@ public class AdminService {
       update = true;
     }
 
+    if (adminCreate.getProfilePicture() != null
+        && (admin.getProfilePicture() == null
+            || !adminCreate
+                .getProfilePicture()
+                .getId()
+                .equals(admin.getProfilePicture().getId()))) {
+      admin.setProfilePicture(adminCreate.getProfilePicture());
+      update = true;
+    }
+
     return update;
   }
 

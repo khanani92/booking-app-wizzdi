@@ -1,12 +1,21 @@
 package com.muddassir_92.hotmail.com.runtime.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.muddassir_92.hotmail.com.runtime.model.Service;
 import com.wizzdi.flexicore.file.model.FileResource;
 import com.wizzdi.flexicore.security.request.BasicCreate;
 import com.wizzdi.flexicore.security.validation.IdValid;
 
-/** Object Used to Create Admin */
+/** Object Used to Create ServiceProvider */
 @com.wizzdi.flexicore.security.validation.IdValid.List({
+  @IdValid(
+      targetField = "service",
+      field = "serviceId",
+      fieldType = com.muddassir_92.hotmail.com.runtime.model.Service.class,
+      groups = {
+        com.wizzdi.flexicore.security.validation.Update.class,
+        com.wizzdi.flexicore.security.validation.Create.class
+      }),
   @IdValid(
       targetField = "profilePicture",
       field = "profilePictureId",
@@ -16,7 +25,7 @@ import com.wizzdi.flexicore.security.validation.IdValid;
         com.wizzdi.flexicore.security.validation.Create.class
       })
 })
-public class AdminCreate extends BasicCreate {
+public class ServiceProviderCreate extends BasicCreate {
 
   private Boolean block;
 
@@ -30,6 +39,10 @@ public class AdminCreate extends BasicCreate {
 
   private String profilePictureId;
 
+  @JsonIgnore private Service service;
+
+  private String serviceId;
+
   /**
    * @return block
    */
@@ -39,9 +52,9 @@ public class AdminCreate extends BasicCreate {
 
   /**
    * @param block block to set
-   * @return AdminCreate
+   * @return ServiceProviderCreate
    */
-  public <T extends AdminCreate> T setBlock(Boolean block) {
+  public <T extends ServiceProviderCreate> T setBlock(Boolean block) {
     this.block = block;
     return (T) this;
   }
@@ -55,9 +68,9 @@ public class AdminCreate extends BasicCreate {
 
   /**
    * @param email email to set
-   * @return AdminCreate
+   * @return ServiceProviderCreate
    */
-  public <T extends AdminCreate> T setEmail(String email) {
+  public <T extends ServiceProviderCreate> T setEmail(String email) {
     this.email = email;
     return (T) this;
   }
@@ -71,9 +84,9 @@ public class AdminCreate extends BasicCreate {
 
   /**
    * @param gender gender to set
-   * @return AdminCreate
+   * @return ServiceProviderCreate
    */
-  public <T extends AdminCreate> T setGender(String gender) {
+  public <T extends ServiceProviderCreate> T setGender(String gender) {
     this.gender = gender;
     return (T) this;
   }
@@ -87,9 +100,9 @@ public class AdminCreate extends BasicCreate {
 
   /**
    * @param password password to set
-   * @return AdminCreate
+   * @return ServiceProviderCreate
    */
-  public <T extends AdminCreate> T setPassword(String password) {
+  public <T extends ServiceProviderCreate> T setPassword(String password) {
     this.password = password;
     return (T) this;
   }
@@ -104,9 +117,9 @@ public class AdminCreate extends BasicCreate {
 
   /**
    * @param profilePicture profilePicture to set
-   * @return AdminCreate
+   * @return ServiceProviderCreate
    */
-  public <T extends AdminCreate> T setProfilePicture(FileResource profilePicture) {
+  public <T extends ServiceProviderCreate> T setProfilePicture(FileResource profilePicture) {
     this.profilePicture = profilePicture;
     return (T) this;
   }
@@ -120,10 +133,43 @@ public class AdminCreate extends BasicCreate {
 
   /**
    * @param profilePictureId profilePictureId to set
-   * @return AdminCreate
+   * @return ServiceProviderCreate
    */
-  public <T extends AdminCreate> T setProfilePictureId(String profilePictureId) {
+  public <T extends ServiceProviderCreate> T setProfilePictureId(String profilePictureId) {
     this.profilePictureId = profilePictureId;
+    return (T) this;
+  }
+
+  /**
+   * @return service
+   */
+  @JsonIgnore
+  public Service getService() {
+    return this.service;
+  }
+
+  /**
+   * @param service service to set
+   * @return ServiceProviderCreate
+   */
+  public <T extends ServiceProviderCreate> T setService(Service service) {
+    this.service = service;
+    return (T) this;
+  }
+
+  /**
+   * @return serviceId
+   */
+  public String getServiceId() {
+    return this.serviceId;
+  }
+
+  /**
+   * @param serviceId serviceId to set
+   * @return ServiceProviderCreate
+   */
+  public <T extends ServiceProviderCreate> T setServiceId(String serviceId) {
+    this.serviceId = serviceId;
     return (T) this;
   }
 }

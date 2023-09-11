@@ -3,9 +3,11 @@ package com.muddassir_92.hotmail.com.runtime.data;
 import com.flexicore.model.Baseclass;
 import com.flexicore.model.Basic;
 import com.flexicore.security.SecurityContextBase;
-import com.muddassir_92.hotmail.com.runtime.model.Admin;
-import com.muddassir_92.hotmail.com.runtime.model.Admin_;
-import com.muddassir_92.hotmail.com.runtime.request.AdminFilter;
+import com.muddassir_92.hotmail.com.runtime.model.Service;
+import com.muddassir_92.hotmail.com.runtime.model.ServiceProvider;
+import com.muddassir_92.hotmail.com.runtime.model.ServiceProvider_;
+import com.muddassir_92.hotmail.com.runtime.model.Service_;
+import com.muddassir_92.hotmail.com.runtime.request.ServiceProviderFilter;
 import com.wizzdi.flexicore.file.model.FileResource;
 import com.wizzdi.flexicore.file.model.FileResource_;
 import com.wizzdi.flexicore.security.data.BasicRepository;
@@ -24,32 +26,35 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
-public class AdminRepository {
+public class ServiceProviderRepository {
   @PersistenceContext private EntityManager em;
 
   @Autowired private SecuredBasicRepository securedBasicRepository;
 
   /**
-   * @param adminFilter Object Used to List Admin
+   * @param serviceProviderFilter Object Used to List ServiceProvider
    * @param securityContext
-   * @return List of Admin
+   * @return List of ServiceProvider
    */
-  public List<Admin> listAllAdmins(AdminFilter adminFilter, SecurityContextBase securityContext) {
+  public List<ServiceProvider> listAllServiceProviders(
+      ServiceProviderFilter serviceProviderFilter, SecurityContextBase securityContext) {
     CriteriaBuilder cb = em.getCriteriaBuilder();
-    CriteriaQuery<Admin> q = cb.createQuery(Admin.class);
-    Root<Admin> r = q.from(Admin.class);
+    CriteriaQuery<ServiceProvider> q = cb.createQuery(ServiceProvider.class);
+    Root<ServiceProvider> r = q.from(ServiceProvider.class);
     List<Predicate> preds = new ArrayList<>();
-    addAdminPredicate(adminFilter, cb, q, r, preds, securityContext);
-    q.select(r).where(preds.toArray(new Predicate[0])).orderBy(cb.desc(r.get(Admin_.creationDate)));
-    TypedQuery<Admin> query = em.createQuery(q);
+    addServiceProviderPredicate(serviceProviderFilter, cb, q, r, preds, securityContext);
+    q.select(r)
+        .where(preds.toArray(new Predicate[0]))
+        .orderBy(cb.desc(r.get(ServiceProvider_.creationDate)));
+    TypedQuery<ServiceProvider> query = em.createQuery(q);
 
-    BasicRepository.addPagination(adminFilter, query);
+    BasicRepository.addPagination(serviceProviderFilter, query);
 
     return query.getResultList();
   }
 
-  public <T extends Admin> void addAdminPredicate(
-      AdminFilter adminFilter,
+  public <T extends ServiceProvider> void addServiceProviderPredicate(
+      ServiceProviderFilter serviceProviderFilter,
       CriteriaBuilder cb,
       CommonAbstractCriteria q,
       From<?, T> r,
@@ -57,41 +62,53 @@ public class AdminRepository {
       SecurityContextBase securityContext) {
 
     this.securedBasicRepository.addSecuredBasicPredicates(
-        adminFilter.getBasicPropertiesFilter(), cb, q, r, preds, securityContext);
+        serviceProviderFilter.getBasicPropertiesFilter(), cb, q, r, preds, securityContext);
 
-    if (adminFilter.getGender() != null && !adminFilter.getGender().isEmpty()) {
-      preds.add(r.get(Admin_.gender).in(adminFilter.getGender()));
-    }
-
-    if (adminFilter.getBlock() != null && !adminFilter.getBlock().isEmpty()) {
-      preds.add(r.get(Admin_.block).in(adminFilter.getBlock()));
-    }
-
-    if (adminFilter.getEmail() != null && !adminFilter.getEmail().isEmpty()) {
-      preds.add(r.get(Admin_.email).in(adminFilter.getEmail()));
-    }
-
-    if (adminFilter.getProfilePictures() != null && !adminFilter.getProfilePictures().isEmpty()) {
+    if (serviceProviderFilter.getProfilePictures() != null
+        && !serviceProviderFilter.getProfilePictures().isEmpty()) {
       Set<String> ids =
-          adminFilter.getProfilePictures().parallelStream()
+          serviceProviderFilter.getProfilePictures().parallelStream()
               .map(f -> f.getId())
               .collect(Collectors.toSet());
-      Join<T, FileResource> join = r.join(Admin_.profilePicture);
+      Join<T, FileResource> join = r.join(ServiceProvider_.profilePicture);
       preds.add(join.get(FileResource_.id).in(ids));
+    }
+
+    if (serviceProviderFilter.getBlock() != null && !serviceProviderFilter.getBlock().isEmpty()) {
+      preds.add(r.get(ServiceProvider_.block).in(serviceProviderFilter.getBlock()));
+    }
+
+    if (serviceProviderFilter.getServices() != null
+        && !serviceProviderFilter.getServices().isEmpty()) {
+      Set<String> ids =
+          serviceProviderFilter.getServices().parallelStream()
+              .map(f -> f.getId())
+              .collect(Collectors.toSet());
+      Join<T, Service> join = r.join(ServiceProvider_.service);
+      preds.add(join.get(Service_.id).in(ids));
+    }
+
+    if (serviceProviderFilter.getGender() != null && !serviceProviderFilter.getGender().isEmpty()) {
+      preds.add(r.get(ServiceProvider_.gender).in(serviceProviderFilter.getGender()));
+    }
+
+    if (serviceProviderFilter.getEmail() != null && !serviceProviderFilter.getEmail().isEmpty()) {
+      preds.add(r.get(ServiceProvider_.email).in(serviceProviderFilter.getEmail()));
     }
   }
 
   /**
-   * @param adminFilter Object Used to List Admin
+   * @param serviceProviderFilter Object Used to List ServiceProvider
    * @param securityContext
-   * @return count of Admin
+   * @return count of ServiceProvider
    */
-  public Long countAllAdmins(AdminFilter adminFilter, SecurityContextBase securityContext) {
+  public Long countAllServiceProviders(
+      ServiceProviderFilter serviceProviderFilter, SecurityContextBase securityContext) {
     CriteriaBuilder cb = em.getCriteriaBuilder();
     CriteriaQuery<Long> q = cb.createQuery(Long.class);
-    Root<Admin> r = q.from(Admin.class);
+    Root<ServiceProvider> r = q.from(ServiceProvider.class);
     List<Predicate> preds = new ArrayList<>();
-    addAdminPredicate(adminFilter, cb, q, r, preds, securityContext);
+    addServiceProviderPredicate(serviceProviderFilter, cb, q, r, preds, securityContext);
     q.select(cb.count(r)).where(preds.toArray(new Predicate[0]));
     TypedQuery<Long> query = em.createQuery(q);
     return query.getSingleResult();

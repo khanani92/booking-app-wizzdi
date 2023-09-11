@@ -5,7 +5,7 @@ import com.wizzdi.flexicore.file.model.FileResource;
 import com.wizzdi.flexicore.security.request.BasicCreate;
 import com.wizzdi.flexicore.security.validation.IdValid;
 
-/** Object Used to Create Admin */
+/** Object Used to Create User */
 @com.wizzdi.flexicore.security.validation.IdValid.List({
   @IdValid(
       targetField = "profilePicture",
@@ -16,7 +16,7 @@ import com.wizzdi.flexicore.security.validation.IdValid;
         com.wizzdi.flexicore.security.validation.Create.class
       })
 })
-public class AdminCreate extends BasicCreate {
+public class UserCreate extends BasicCreate {
 
   private Boolean block;
 
@@ -39,9 +39,9 @@ public class AdminCreate extends BasicCreate {
 
   /**
    * @param block block to set
-   * @return AdminCreate
+   * @return UserCreate
    */
-  public <T extends AdminCreate> T setBlock(Boolean block) {
+  public <T extends UserCreate> T setBlock(Boolean block) {
     this.block = block;
     return (T) this;
   }
@@ -55,9 +55,9 @@ public class AdminCreate extends BasicCreate {
 
   /**
    * @param email email to set
-   * @return AdminCreate
+   * @return UserCreate
    */
-  public <T extends AdminCreate> T setEmail(String email) {
+  public <T extends UserCreate> T setEmail(String email) {
     this.email = email;
     return (T) this;
   }
@@ -71,9 +71,9 @@ public class AdminCreate extends BasicCreate {
 
   /**
    * @param gender gender to set
-   * @return AdminCreate
+   * @return UserCreate
    */
-  public <T extends AdminCreate> T setGender(String gender) {
+  public <T extends UserCreate> T setGender(String gender) {
     this.gender = gender;
     return (T) this;
   }
@@ -87,9 +87,9 @@ public class AdminCreate extends BasicCreate {
 
   /**
    * @param password password to set
-   * @return AdminCreate
+   * @return UserCreate
    */
-  public <T extends AdminCreate> T setPassword(String password) {
+  public <T extends UserCreate> T setPassword(String password) {
     this.password = password;
     return (T) this;
   }
@@ -104,9 +104,9 @@ public class AdminCreate extends BasicCreate {
 
   /**
    * @param profilePicture profilePicture to set
-   * @return AdminCreate
+   * @return UserCreate
    */
-  public <T extends AdminCreate> T setProfilePicture(FileResource profilePicture) {
+  public <T extends UserCreate> T setProfilePicture(FileResource profilePicture) {
     this.profilePicture = profilePicture;
     return (T) this;
   }
@@ -120,9 +120,9 @@ public class AdminCreate extends BasicCreate {
 
   /**
    * @param profilePictureId profilePictureId to set
-   * @return AdminCreate
+   * @return UserCreate
    */
-  public <T extends AdminCreate> T setProfilePictureId(String profilePictureId) {
+  public <T extends UserCreate> T setProfilePictureId(String profilePictureId) {
     this.profilePictureId = profilePictureId;
     return (T) this;
   }

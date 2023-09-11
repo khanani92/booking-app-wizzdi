@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Admin extends SecuredBasic {
+public class User extends SecuredBasic {
 
   private String password;
 
@@ -28,9 +28,9 @@ public class Admin extends SecuredBasic {
 
   /**
    * @param password password to set
-   * @return Admin
+   * @return User
    */
-  public <T extends Admin> T setPassword(String password) {
+  public <T extends User> T setPassword(String password) {
     this.password = password;
     return (T) this;
   }
@@ -44,9 +44,9 @@ public class Admin extends SecuredBasic {
 
   /**
    * @param email email to set
-   * @return Admin
+   * @return User
    */
-  public <T extends Admin> T setEmail(String email) {
+  public <T extends User> T setEmail(String email) {
     this.email = email;
     return (T) this;
   }
@@ -60,9 +60,9 @@ public class Admin extends SecuredBasic {
 
   /**
    * @param block block to set
-   * @return Admin
+   * @return User
    */
-  public <T extends Admin> T setBlock(boolean block) {
+  public <T extends User> T setBlock(boolean block) {
     this.block = block;
     return (T) this;
   }
@@ -76,9 +76,9 @@ public class Admin extends SecuredBasic {
 
   /**
    * @param gender gender to set
-   * @return Admin
+   * @return User
    */
-  public <T extends Admin> T setGender(String gender) {
+  public <T extends User> T setGender(String gender) {
     this.gender = gender;
     return (T) this;
   }
@@ -93,9 +93,9 @@ public class Admin extends SecuredBasic {
 
   /**
    * @param profilePicture profilePicture to set
-   * @return Admin
+   * @return User
    */
-  public <T extends Admin> T setProfilePicture(FileResource profilePicture) {
+  public <T extends User> T setProfilePicture(FileResource profilePicture) {
     this.profilePicture = profilePicture;
     return (T) this;
   }

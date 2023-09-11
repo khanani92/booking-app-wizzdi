@@ -8,14 +8,14 @@ import com.wizzdi.flexicore.security.validation.IdValid;
 import java.util.List;
 import java.util.Set;
 
-/** Object Used to List Admin */
+/** Object Used to List User */
 @com.wizzdi.flexicore.security.validation.IdValid.List({
   @IdValid(
       targetField = "profilePictures",
       field = "profilePictureIds",
       fieldType = com.wizzdi.flexicore.file.model.FileResource.class)
 })
-public class AdminFilter extends PaginationFilter {
+public class UserFilter extends PaginationFilter {
 
   private BasicPropertiesFilter basicPropertiesFilter;
 
@@ -38,9 +38,9 @@ public class AdminFilter extends PaginationFilter {
 
   /**
    * @param basicPropertiesFilter basicPropertiesFilter to set
-   * @return AdminFilter
+   * @return UserFilter
    */
-  public <T extends AdminFilter> T setBasicPropertiesFilter(
+  public <T extends UserFilter> T setBasicPropertiesFilter(
       BasicPropertiesFilter basicPropertiesFilter) {
     this.basicPropertiesFilter = basicPropertiesFilter;
     return (T) this;
@@ -55,9 +55,9 @@ public class AdminFilter extends PaginationFilter {
 
   /**
    * @param block block to set
-   * @return AdminFilter
+   * @return UserFilter
    */
-  public <T extends AdminFilter> T setBlock(Set<Boolean> block) {
+  public <T extends UserFilter> T setBlock(Set<Boolean> block) {
     this.block = block;
     return (T) this;
   }
@@ -71,9 +71,9 @@ public class AdminFilter extends PaginationFilter {
 
   /**
    * @param email email to set
-   * @return AdminFilter
+   * @return UserFilter
    */
-  public <T extends AdminFilter> T setEmail(Set<String> email) {
+  public <T extends UserFilter> T setEmail(Set<String> email) {
     this.email = email;
     return (T) this;
   }
@@ -87,9 +87,9 @@ public class AdminFilter extends PaginationFilter {
 
   /**
    * @param gender gender to set
-   * @return AdminFilter
+   * @return UserFilter
    */
-  public <T extends AdminFilter> T setGender(Set<String> gender) {
+  public <T extends UserFilter> T setGender(Set<String> gender) {
     this.gender = gender;
     return (T) this;
   }
@@ -103,9 +103,9 @@ public class AdminFilter extends PaginationFilter {
 
   /**
    * @param profilePictureIds profilePictureIds to set
-   * @return AdminFilter
+   * @return UserFilter
    */
-  public <T extends AdminFilter> T setProfilePictureIds(Set<String> profilePictureIds) {
+  public <T extends UserFilter> T setProfilePictureIds(Set<String> profilePictureIds) {
     this.profilePictureIds = profilePictureIds;
     return (T) this;
   }
@@ -120,9 +120,9 @@ public class AdminFilter extends PaginationFilter {
 
   /**
    * @param profilePictures profilePictures to set
-   * @return AdminFilter
+   * @return UserFilter
    */
-  public <T extends AdminFilter> T setProfilePictures(List<FileResource> profilePictures) {
+  public <T extends UserFilter> T setProfilePictures(List<FileResource> profilePictures) {
     this.profilePictures = profilePictures;
     return (T) this;
   }

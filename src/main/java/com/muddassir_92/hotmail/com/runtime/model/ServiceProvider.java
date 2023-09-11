@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Admin extends SecuredBasic {
+public class ServiceProvider extends SecuredBasic {
 
   private String password;
 
@@ -15,6 +15,9 @@ public class Admin extends SecuredBasic {
   private boolean block;
 
   private String gender;
+
+  @ManyToOne(targetEntity = Service.class)
+  private Service service;
 
   @ManyToOne(targetEntity = FileResource.class)
   private FileResource profilePicture;
@@ -28,9 +31,9 @@ public class Admin extends SecuredBasic {
 
   /**
    * @param password password to set
-   * @return Admin
+   * @return ServiceProvider
    */
-  public <T extends Admin> T setPassword(String password) {
+  public <T extends ServiceProvider> T setPassword(String password) {
     this.password = password;
     return (T) this;
   }
@@ -44,9 +47,9 @@ public class Admin extends SecuredBasic {
 
   /**
    * @param email email to set
-   * @return Admin
+   * @return ServiceProvider
    */
-  public <T extends Admin> T setEmail(String email) {
+  public <T extends ServiceProvider> T setEmail(String email) {
     this.email = email;
     return (T) this;
   }
@@ -60,9 +63,9 @@ public class Admin extends SecuredBasic {
 
   /**
    * @param block block to set
-   * @return Admin
+   * @return ServiceProvider
    */
-  public <T extends Admin> T setBlock(boolean block) {
+  public <T extends ServiceProvider> T setBlock(boolean block) {
     this.block = block;
     return (T) this;
   }
@@ -76,10 +79,27 @@ public class Admin extends SecuredBasic {
 
   /**
    * @param gender gender to set
-   * @return Admin
+   * @return ServiceProvider
    */
-  public <T extends Admin> T setGender(String gender) {
+  public <T extends ServiceProvider> T setGender(String gender) {
     this.gender = gender;
+    return (T) this;
+  }
+
+  /**
+   * @return service
+   */
+  @ManyToOne(targetEntity = Service.class)
+  public Service getService() {
+    return this.service;
+  }
+
+  /**
+   * @param service service to set
+   * @return ServiceProvider
+   */
+  public <T extends ServiceProvider> T setService(Service service) {
+    this.service = service;
     return (T) this;
   }
 
@@ -93,9 +113,9 @@ public class Admin extends SecuredBasic {
 
   /**
    * @param profilePicture profilePicture to set
-   * @return Admin
+   * @return ServiceProvider
    */
-  public <T extends Admin> T setProfilePicture(FileResource profilePicture) {
+  public <T extends ServiceProvider> T setProfilePicture(FileResource profilePicture) {
     this.profilePicture = profilePicture;
     return (T) this;
   }
