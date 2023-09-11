@@ -8,9 +8,13 @@
             
                 <class>com.flexicore.model.Basic</class>
             
+                <class>com.flexicore.model.SecuredBasic</class>
+            
                 <class>com.flexicore.model.SecurityEntity</class>
             
                 <class>com.flexicore.model.SecurityUser</class>
+            
+                <class>com.muddassir_92.hotmail.com.runtime.model.Admin</class>
             
                 <class>com.muddassir_92.hotmail.com.runtime.model.AppUser</class>
             
