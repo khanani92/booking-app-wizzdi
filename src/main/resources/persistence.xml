@@ -22,6 +22,8 @@
             
                 <class>com.muddassir_92.hotmail.com.runtime.model.ServiceProvider</class>
             
+                <class>com.muddassir_92.hotmail.com.runtime.model.ServiceToServiceProvider</class>
+            
                 <class>com.muddassir_92.hotmail.com.runtime.model.User</class>
             
 

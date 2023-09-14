@@ -76,6 +76,11 @@ public class ServiceService {
       update = true;
     }
 
+    if (serviceCreate.getBlock() != null && (!serviceCreate.getBlock().equals(service.isBlock()))) {
+      service.setBlock(serviceCreate.getBlock());
+      update = true;
+    }
+
     return update;
   }
 

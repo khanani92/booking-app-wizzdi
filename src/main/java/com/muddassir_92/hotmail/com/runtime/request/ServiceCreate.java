@@ -18,11 +18,29 @@ import com.wizzdi.flexicore.security.validation.IdValid;
 })
 public class ServiceCreate extends BasicCreate {
 
+  private Boolean block;
+
   private Float price;
 
   @JsonIgnore private FileResource profilePicture;
 
   private String profilePictureId;
+
+  /**
+   * @return block
+   */
+  public Boolean getBlock() {
+    return this.block;
+  }
+
+  /**
+   * @param block block to set
+   * @return ServiceCreate
+   */
+  public <T extends ServiceCreate> T setBlock(Boolean block) {
+    this.block = block;
+    return (T) this;
+  }
 
   /**
    * @return price

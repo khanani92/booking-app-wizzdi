@@ -68,11 +68,6 @@ public class AdminService {
       update = true;
     }
 
-    if (adminCreate.getGender() != null && (!adminCreate.getGender().equals(admin.getGender()))) {
-      admin.setGender(adminCreate.getGender());
-      update = true;
-    }
-
     if (adminCreate.getBlock() != null && (!adminCreate.getBlock().equals(admin.isBlock()))) {
       admin.setBlock(adminCreate.getBlock());
       update = true;

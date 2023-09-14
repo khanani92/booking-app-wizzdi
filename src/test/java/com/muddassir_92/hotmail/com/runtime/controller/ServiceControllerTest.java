@@ -67,6 +67,8 @@ public class ServiceControllerTest {
 
     request.setPrice(10f);
 
+    request.setBlock(true);
+
     ResponseEntity<Service> response =
         this.restTemplate.postForEntity("/Service/createService", request, Service.class);
     Assertions.assertEquals(200, response.getStatusCodeValue());
@@ -97,6 +99,10 @@ public class ServiceControllerTest {
 
     if (request.getPrice() != null) {
       Assertions.assertEquals(request.getPrice(), testService.getPrice());
+    }
+
+    if (request.getBlock() != null) {
+      Assertions.assertEquals(request.getBlock(), testService.isBlock());
     }
   }
 

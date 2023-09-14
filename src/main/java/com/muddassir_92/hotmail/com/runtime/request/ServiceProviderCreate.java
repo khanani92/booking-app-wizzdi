@@ -1,21 +1,12 @@
 package com.muddassir_92.hotmail.com.runtime.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.muddassir_92.hotmail.com.runtime.model.Service;
 import com.wizzdi.flexicore.file.model.FileResource;
 import com.wizzdi.flexicore.security.request.BasicCreate;
 import com.wizzdi.flexicore.security.validation.IdValid;
 
 /** Object Used to Create ServiceProvider */
 @com.wizzdi.flexicore.security.validation.IdValid.List({
-  @IdValid(
-      targetField = "service",
-      field = "serviceId",
-      fieldType = com.muddassir_92.hotmail.com.runtime.model.Service.class,
-      groups = {
-        com.wizzdi.flexicore.security.validation.Update.class,
-        com.wizzdi.flexicore.security.validation.Create.class
-      }),
   @IdValid(
       targetField = "profilePicture",
       field = "profilePictureId",
@@ -27,6 +18,8 @@ import com.wizzdi.flexicore.security.validation.IdValid;
 })
 public class ServiceProviderCreate extends BasicCreate {
 
+  private String address;
+
   private Boolean block;
 
   private String email;
@@ -35,13 +28,27 @@ public class ServiceProviderCreate extends BasicCreate {
 
   private String password;
 
+  private String phoneNumber;
+
   @JsonIgnore private FileResource profilePicture;
 
   private String profilePictureId;
 
-  @JsonIgnore private Service service;
+  /**
+   * @return address
+   */
+  public String getAddress() {
+    return this.address;
+  }
 
-  private String serviceId;
+  /**
+   * @param address address to set
+   * @return ServiceProviderCreate
+   */
+  public <T extends ServiceProviderCreate> T setAddress(String address) {
+    this.address = address;
+    return (T) this;
+  }
 
   /**
    * @return block
@@ -108,6 +115,22 @@ public class ServiceProviderCreate extends BasicCreate {
   }
 
   /**
+   * @return phoneNumber
+   */
+  public String getPhoneNumber() {
+    return this.phoneNumber;
+  }
+
+  /**
+   * @param phoneNumber phoneNumber to set
+   * @return ServiceProviderCreate
+   */
+  public <T extends ServiceProviderCreate> T setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+    return (T) this;
+  }
+
+  /**
    * @return profilePicture
    */
   @JsonIgnore
@@ -137,39 +160,6 @@ public class ServiceProviderCreate extends BasicCreate {
    */
   public <T extends ServiceProviderCreate> T setProfilePictureId(String profilePictureId) {
     this.profilePictureId = profilePictureId;
-    return (T) this;
-  }
-
-  /**
-   * @return service
-   */
-  @JsonIgnore
-  public Service getService() {
-    return this.service;
-  }
-
-  /**
-   * @param service service to set
-   * @return ServiceProviderCreate
-   */
-  public <T extends ServiceProviderCreate> T setService(Service service) {
-    this.service = service;
-    return (T) this;
-  }
-
-  /**
-   * @return serviceId
-   */
-  public String getServiceId() {
-    return this.serviceId;
-  }
-
-  /**
-   * @param serviceId serviceId to set
-   * @return ServiceProviderCreate
-   */
-  public <T extends ServiceProviderCreate> T setServiceId(String serviceId) {
-    this.serviceId = serviceId;
     return (T) this;
   }
 }

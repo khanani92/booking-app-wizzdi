@@ -67,8 +67,6 @@ public class AdminControllerTest {
 
     request.setPassword("test-string");
 
-    request.setGender("test-string");
-
     request.setBlock(true);
 
     request.setEmail("test-string");
@@ -102,10 +100,6 @@ public class AdminControllerTest {
 
     if (request.getPassword() != null) {
       Assertions.assertEquals(request.getPassword(), testAdmin.getPassword());
-    }
-
-    if (request.getGender() != null) {
-      Assertions.assertEquals(request.getGender(), testAdmin.getGender());
     }
 
     if (request.getBlock() != null) {

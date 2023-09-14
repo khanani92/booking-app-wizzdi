@@ -1,7 +1,6 @@
 package com.muddassir_92.hotmail.com.runtime.controller;
 
 import com.muddassir_92.hotmail.com.runtime.AppInit;
-import com.muddassir_92.hotmail.com.runtime.model.Service;
 import com.muddassir_92.hotmail.com.runtime.model.ServiceProvider;
 import com.muddassir_92.hotmail.com.runtime.request.LoginRequest;
 import com.muddassir_92.hotmail.com.runtime.request.ServiceProviderCreate;
@@ -40,8 +39,6 @@ public class ServiceProviderControllerTest {
   private ServiceProvider testServiceProvider;
   @Autowired private TestRestTemplate restTemplate;
 
-  @Autowired private Service service;
-
   @BeforeAll
   private void init() {
     ResponseEntity<Object> authenticationResponse =
@@ -70,9 +67,11 @@ public class ServiceProviderControllerTest {
 
     request.setBlock(true);
 
-    request.setServiceId(this.service.getId());
+    request.setAddress("test-string");
 
     request.setGender("test-string");
+
+    request.setPhoneNumber("test-string");
 
     request.setEmail("test-string");
 
@@ -116,14 +115,16 @@ public class ServiceProviderControllerTest {
       Assertions.assertEquals(request.getBlock(), testServiceProvider.isBlock());
     }
 
-    if (request.getServiceId() != null) {
-
-      Assertions.assertNotNull(testServiceProvider.getService());
-      Assertions.assertEquals(request.getServiceId(), testServiceProvider.getService().getId());
+    if (request.getAddress() != null) {
+      Assertions.assertEquals(request.getAddress(), testServiceProvider.getAddress());
     }
 
     if (request.getGender() != null) {
       Assertions.assertEquals(request.getGender(), testServiceProvider.getGender());
+    }
+
+    if (request.getPhoneNumber() != null) {
+      Assertions.assertEquals(request.getPhoneNumber(), testServiceProvider.getPhoneNumber());
     }
 
     if (request.getEmail() != null) {

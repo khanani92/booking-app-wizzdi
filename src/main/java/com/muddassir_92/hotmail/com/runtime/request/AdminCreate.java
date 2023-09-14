@@ -22,8 +22,6 @@ public class AdminCreate extends BasicCreate {
 
   private String email;
 
-  private String gender;
-
   private String password;
 
   @JsonIgnore private FileResource profilePicture;
@@ -59,22 +57,6 @@ public class AdminCreate extends BasicCreate {
    */
   public <T extends AdminCreate> T setEmail(String email) {
     this.email = email;
-    return (T) this;
-  }
-
-  /**
-   * @return gender
-   */
-  public String getGender() {
-    return this.gender;
-  }
-
-  /**
-   * @param gender gender to set
-   * @return AdminCreate
-   */
-  public <T extends AdminCreate> T setGender(String gender) {
-    this.gender = gender;
     return (T) this;
   }
 

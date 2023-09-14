@@ -23,8 +23,6 @@ public class AdminFilter extends PaginationFilter {
 
   private Set<String> email;
 
-  private Set<String> gender;
-
   private Set<String> profilePictureIds;
 
   @JsonIgnore private List<FileResource> profilePictures;
@@ -75,22 +73,6 @@ public class AdminFilter extends PaginationFilter {
    */
   public <T extends AdminFilter> T setEmail(Set<String> email) {
     this.email = email;
-    return (T) this;
-  }
-
-  /**
-   * @return gender
-   */
-  public Set<String> getGender() {
-    return this.gender;
-  }
-
-  /**
-   * @param gender gender to set
-   * @return AdminFilter
-   */
-  public <T extends AdminFilter> T setGender(Set<String> gender) {
-    this.gender = gender;
     return (T) this;
   }
 

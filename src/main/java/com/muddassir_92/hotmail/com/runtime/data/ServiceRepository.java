@@ -4,8 +4,8 @@ import com.flexicore.model.Baseclass;
 import com.flexicore.model.Basic;
 import com.flexicore.security.SecurityContextBase;
 import com.muddassir_92.hotmail.com.runtime.model.Service;
-import com.muddassir_92.hotmail.com.runtime.model.ServiceProvider;
-import com.muddassir_92.hotmail.com.runtime.model.ServiceProvider_;
+import com.muddassir_92.hotmail.com.runtime.model.ServiceToServiceProvider;
+import com.muddassir_92.hotmail.com.runtime.model.ServiceToServiceProvider_;
 import com.muddassir_92.hotmail.com.runtime.model.Service_;
 import com.muddassir_92.hotmail.com.runtime.request.ServiceFilter;
 import com.wizzdi.flexicore.file.model.FileResource;
@@ -64,16 +64,6 @@ public class ServiceRepository {
     this.securedBasicRepository.addSecuredBasicPredicates(
         serviceFilter.getBasicPropertiesFilter(), cb, q, r, preds, securityContext);
 
-    if (serviceFilter.getServiceServiceProviderses() != null
-        && !serviceFilter.getServiceServiceProviderses().isEmpty()) {
-      Set<String> ids =
-          serviceFilter.getServiceServiceProviderses().parallelStream()
-              .map(f -> f.getId())
-              .collect(Collectors.toSet());
-      Join<T, ServiceProvider> join = r.join(Service_.serviceServiceProviders);
-      preds.add(join.get(ServiceProvider_.id).in(ids));
-    }
-
     if (serviceFilter.getPriceStart() != null) {
       preds.add(cb.greaterThanOrEqualTo(r.get(Service_.price), serviceFilter.getPriceStart()));
     }
@@ -89,6 +79,20 @@ public class ServiceRepository {
               .collect(Collectors.toSet());
       Join<T, FileResource> join = r.join(Service_.profilePicture);
       preds.add(join.get(FileResource_.id).in(ids));
+    }
+
+    if (serviceFilter.getBlock() != null && !serviceFilter.getBlock().isEmpty()) {
+      preds.add(r.get(Service_.block).in(serviceFilter.getBlock()));
+    }
+
+    if (serviceFilter.getServiceServiceToServiceProviderses() != null
+        && !serviceFilter.getServiceServiceToServiceProviderses().isEmpty()) {
+      Set<String> ids =
+          serviceFilter.getServiceServiceToServiceProviderses().parallelStream()
+              .map(f -> f.getId())
+              .collect(Collectors.toSet());
+      Join<T, ServiceToServiceProvider> join = r.join(Service_.serviceServiceToServiceProviders);
+      preds.add(join.get(ServiceToServiceProvider_.id).in(ids));
     }
   }
 

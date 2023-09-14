@@ -1,12 +1,19 @@
 package com.muddassir_92.hotmail.com.runtime.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.flexicore.model.SecuredBasic;
 import com.wizzdi.flexicore.file.model.FileResource;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 public class ServiceProvider extends SecuredBasic {
+
+  @OneToMany(targetEntity = ServiceToServiceProvider.class, mappedBy = "serviceProvider")
+  @JsonIgnore
+  private List<ServiceToServiceProvider> serviceProviderServiceToServiceProviders;
 
   private String password;
 
@@ -16,11 +23,31 @@ public class ServiceProvider extends SecuredBasic {
 
   private String gender;
 
-  @ManyToOne(targetEntity = Service.class)
-  private Service service;
-
   @ManyToOne(targetEntity = FileResource.class)
   private FileResource profilePicture;
+
+  private String address;
+
+  private String phoneNumber;
+
+  /**
+   * @return serviceProviderServiceToServiceProviders
+   */
+  @OneToMany(targetEntity = ServiceToServiceProvider.class, mappedBy = "serviceProvider")
+  @JsonIgnore
+  public List<ServiceToServiceProvider> getServiceProviderServiceToServiceProviders() {
+    return this.serviceProviderServiceToServiceProviders;
+  }
+
+  /**
+   * @param serviceProviderServiceToServiceProviders serviceProviderServiceToServiceProviders to set
+   * @return ServiceProvider
+   */
+  public <T extends ServiceProvider> T setServiceProviderServiceToServiceProviders(
+      List<ServiceToServiceProvider> serviceProviderServiceToServiceProviders) {
+    this.serviceProviderServiceToServiceProviders = serviceProviderServiceToServiceProviders;
+    return (T) this;
+  }
 
   /**
    * @return password
@@ -87,23 +114,6 @@ public class ServiceProvider extends SecuredBasic {
   }
 
   /**
-   * @return service
-   */
-  @ManyToOne(targetEntity = Service.class)
-  public Service getService() {
-    return this.service;
-  }
-
-  /**
-   * @param service service to set
-   * @return ServiceProvider
-   */
-  public <T extends ServiceProvider> T setService(Service service) {
-    this.service = service;
-    return (T) this;
-  }
-
-  /**
    * @return profilePicture
    */
   @ManyToOne(targetEntity = FileResource.class)
@@ -117,6 +127,38 @@ public class ServiceProvider extends SecuredBasic {
    */
   public <T extends ServiceProvider> T setProfilePicture(FileResource profilePicture) {
     this.profilePicture = profilePicture;
+    return (T) this;
+  }
+
+  /**
+   * @return address
+   */
+  public String getAddress() {
+    return this.address;
+  }
+
+  /**
+   * @param address address to set
+   * @return ServiceProvider
+   */
+  public <T extends ServiceProvider> T setAddress(String address) {
+    this.address = address;
+    return (T) this;
+  }
+
+  /**
+   * @return phoneNumber
+   */
+  public String getPhoneNumber() {
+    return this.phoneNumber;
+  }
+
+  /**
+   * @param phoneNumber phoneNumber to set
+   * @return ServiceProvider
+   */
+  public <T extends ServiceProvider> T setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
     return (T) this;
   }
 }

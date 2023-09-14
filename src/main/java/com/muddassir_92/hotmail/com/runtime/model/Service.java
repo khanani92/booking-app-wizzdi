@@ -11,31 +11,33 @@ import java.util.List;
 @Entity
 public class Service extends SecuredBasic {
 
-  @OneToMany(targetEntity = ServiceProvider.class, mappedBy = "service")
+  @OneToMany(targetEntity = ServiceToServiceProvider.class, mappedBy = "service")
   @JsonIgnore
-  private List<ServiceProvider> serviceServiceProviders;
+  private List<ServiceToServiceProvider> serviceServiceToServiceProviders;
 
   private float price;
 
   @ManyToOne(targetEntity = FileResource.class)
   private FileResource profilePicture;
 
+  private boolean block;
+
   /**
-   * @return serviceServiceProviders
+   * @return serviceServiceToServiceProviders
    */
-  @OneToMany(targetEntity = ServiceProvider.class, mappedBy = "service")
+  @OneToMany(targetEntity = ServiceToServiceProvider.class, mappedBy = "service")
   @JsonIgnore
-  public List<ServiceProvider> getServiceServiceProviders() {
-    return this.serviceServiceProviders;
+  public List<ServiceToServiceProvider> getServiceServiceToServiceProviders() {
+    return this.serviceServiceToServiceProviders;
   }
 
   /**
-   * @param serviceServiceProviders serviceServiceProviders to set
+   * @param serviceServiceToServiceProviders serviceServiceToServiceProviders to set
    * @return Service
    */
-  public <T extends Service> T setServiceServiceProviders(
-      List<ServiceProvider> serviceServiceProviders) {
-    this.serviceServiceProviders = serviceServiceProviders;
+  public <T extends Service> T setServiceServiceToServiceProviders(
+      List<ServiceToServiceProvider> serviceServiceToServiceProviders) {
+    this.serviceServiceToServiceProviders = serviceServiceToServiceProviders;
     return (T) this;
   }
 
@@ -69,6 +71,22 @@ public class Service extends SecuredBasic {
    */
   public <T extends Service> T setProfilePicture(FileResource profilePicture) {
     this.profilePicture = profilePicture;
+    return (T) this;
+  }
+
+  /**
+   * @return block
+   */
+  public boolean isBlock() {
+    return this.block;
+  }
+
+  /**
+   * @param block block to set
+   * @return Service
+   */
+  public <T extends Service> T setBlock(boolean block) {
+    this.block = block;
     return (T) this;
   }
 }

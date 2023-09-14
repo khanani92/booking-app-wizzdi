@@ -14,8 +14,6 @@ public class Admin extends SecuredBasic {
 
   private boolean block;
 
-  private String gender;
-
   @ManyToOne(targetEntity = FileResource.class)
   private FileResource profilePicture;
 
@@ -64,22 +62,6 @@ public class Admin extends SecuredBasic {
    */
   public <T extends Admin> T setBlock(boolean block) {
     this.block = block;
-    return (T) this;
-  }
-
-  /**
-   * @return gender
-   */
-  public String getGender() {
-    return this.gender;
-  }
-
-  /**
-   * @param gender gender to set
-   * @return Admin
-   */
-  public <T extends Admin> T setGender(String gender) {
-    this.gender = gender;
     return (T) this;
   }
 

@@ -3,10 +3,10 @@ package com.muddassir_92.hotmail.com.runtime.data;
 import com.flexicore.model.Baseclass;
 import com.flexicore.model.Basic;
 import com.flexicore.security.SecurityContextBase;
-import com.muddassir_92.hotmail.com.runtime.model.Service;
 import com.muddassir_92.hotmail.com.runtime.model.ServiceProvider;
 import com.muddassir_92.hotmail.com.runtime.model.ServiceProvider_;
-import com.muddassir_92.hotmail.com.runtime.model.Service_;
+import com.muddassir_92.hotmail.com.runtime.model.ServiceToServiceProvider;
+import com.muddassir_92.hotmail.com.runtime.model.ServiceToServiceProvider_;
 import com.muddassir_92.hotmail.com.runtime.request.ServiceProviderFilter;
 import com.wizzdi.flexicore.file.model.FileResource;
 import com.wizzdi.flexicore.file.model.FileResource_;
@@ -78,22 +78,33 @@ public class ServiceProviderRepository {
       preds.add(r.get(ServiceProvider_.block).in(serviceProviderFilter.getBlock()));
     }
 
-    if (serviceProviderFilter.getServices() != null
-        && !serviceProviderFilter.getServices().isEmpty()) {
-      Set<String> ids =
-          serviceProviderFilter.getServices().parallelStream()
-              .map(f -> f.getId())
-              .collect(Collectors.toSet());
-      Join<T, Service> join = r.join(ServiceProvider_.service);
-      preds.add(join.get(Service_.id).in(ids));
+    if (serviceProviderFilter.getAddress() != null
+        && !serviceProviderFilter.getAddress().isEmpty()) {
+      preds.add(r.get(ServiceProvider_.address).in(serviceProviderFilter.getAddress()));
     }
 
     if (serviceProviderFilter.getGender() != null && !serviceProviderFilter.getGender().isEmpty()) {
       preds.add(r.get(ServiceProvider_.gender).in(serviceProviderFilter.getGender()));
     }
 
+    if (serviceProviderFilter.getPhoneNumber() != null
+        && !serviceProviderFilter.getPhoneNumber().isEmpty()) {
+      preds.add(r.get(ServiceProvider_.phoneNumber).in(serviceProviderFilter.getPhoneNumber()));
+    }
+
     if (serviceProviderFilter.getEmail() != null && !serviceProviderFilter.getEmail().isEmpty()) {
       preds.add(r.get(ServiceProvider_.email).in(serviceProviderFilter.getEmail()));
+    }
+
+    if (serviceProviderFilter.getServiceProviderServiceToServiceProviderses() != null
+        && !serviceProviderFilter.getServiceProviderServiceToServiceProviderses().isEmpty()) {
+      Set<String> ids =
+          serviceProviderFilter.getServiceProviderServiceToServiceProviderses().parallelStream()
+              .map(f -> f.getId())
+              .collect(Collectors.toSet());
+      Join<T, ServiceToServiceProvider> join =
+          r.join(ServiceProvider_.serviceProviderServiceToServiceProviders);
+      preds.add(join.get(ServiceToServiceProvider_.id).in(ids));
     }
   }
 

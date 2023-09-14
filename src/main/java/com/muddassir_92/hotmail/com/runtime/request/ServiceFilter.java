@@ -1,7 +1,7 @@
 package com.muddassir_92.hotmail.com.runtime.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.muddassir_92.hotmail.com.runtime.model.ServiceProvider;
+import com.muddassir_92.hotmail.com.runtime.model.ServiceToServiceProvider;
 import com.wizzdi.flexicore.file.model.FileResource;
 import com.wizzdi.flexicore.security.request.BasicPropertiesFilter;
 import com.wizzdi.flexicore.security.request.PaginationFilter;
@@ -12,17 +12,19 @@ import java.util.Set;
 /** Object Used to List Service */
 @com.wizzdi.flexicore.security.validation.IdValid.List({
   @IdValid(
-      targetField = "serviceServiceProviderses",
-      field = "serviceServiceProvidersIds",
-      fieldType = com.muddassir_92.hotmail.com.runtime.model.ServiceProvider.class),
-  @IdValid(
       targetField = "profilePictures",
       field = "profilePictureIds",
-      fieldType = com.wizzdi.flexicore.file.model.FileResource.class)
+      fieldType = com.wizzdi.flexicore.file.model.FileResource.class),
+  @IdValid(
+      targetField = "serviceServiceToServiceProviderses",
+      field = "serviceServiceToServiceProvidersIds",
+      fieldType = com.muddassir_92.hotmail.com.runtime.model.ServiceToServiceProvider.class)
 })
 public class ServiceFilter extends PaginationFilter {
 
   private BasicPropertiesFilter basicPropertiesFilter;
+
+  private Set<Boolean> block;
 
   private Float priceEnd;
 
@@ -32,9 +34,9 @@ public class ServiceFilter extends PaginationFilter {
 
   @JsonIgnore private List<FileResource> profilePictures;
 
-  private Set<String> serviceServiceProvidersIds;
+  private Set<String> serviceServiceToServiceProvidersIds;
 
-  @JsonIgnore private List<ServiceProvider> serviceServiceProviderses;
+  @JsonIgnore private List<ServiceToServiceProvider> serviceServiceToServiceProviderses;
 
   /**
    * @return basicPropertiesFilter
@@ -50,6 +52,22 @@ public class ServiceFilter extends PaginationFilter {
   public <T extends ServiceFilter> T setBasicPropertiesFilter(
       BasicPropertiesFilter basicPropertiesFilter) {
     this.basicPropertiesFilter = basicPropertiesFilter;
+    return (T) this;
+  }
+
+  /**
+   * @return block
+   */
+  public Set<Boolean> getBlock() {
+    return this.block;
+  }
+
+  /**
+   * @param block block to set
+   * @return ServiceFilter
+   */
+  public <T extends ServiceFilter> T setBlock(Set<Boolean> block) {
+    this.block = block;
     return (T) this;
   }
 
@@ -119,37 +137,37 @@ public class ServiceFilter extends PaginationFilter {
   }
 
   /**
-   * @return serviceServiceProvidersIds
+   * @return serviceServiceToServiceProvidersIds
    */
-  public Set<String> getServiceServiceProvidersIds() {
-    return this.serviceServiceProvidersIds;
+  public Set<String> getServiceServiceToServiceProvidersIds() {
+    return this.serviceServiceToServiceProvidersIds;
   }
 
   /**
-   * @param serviceServiceProvidersIds serviceServiceProvidersIds to set
+   * @param serviceServiceToServiceProvidersIds serviceServiceToServiceProvidersIds to set
    * @return ServiceFilter
    */
-  public <T extends ServiceFilter> T setServiceServiceProvidersIds(
-      Set<String> serviceServiceProvidersIds) {
-    this.serviceServiceProvidersIds = serviceServiceProvidersIds;
+  public <T extends ServiceFilter> T setServiceServiceToServiceProvidersIds(
+      Set<String> serviceServiceToServiceProvidersIds) {
+    this.serviceServiceToServiceProvidersIds = serviceServiceToServiceProvidersIds;
     return (T) this;
   }
 
   /**
-   * @return serviceServiceProviderses
+   * @return serviceServiceToServiceProviderses
    */
   @JsonIgnore
-  public List<ServiceProvider> getServiceServiceProviderses() {
-    return this.serviceServiceProviderses;
+  public List<ServiceToServiceProvider> getServiceServiceToServiceProviderses() {
+    return this.serviceServiceToServiceProviderses;
   }
 
   /**
-   * @param serviceServiceProviderses serviceServiceProviderses to set
+   * @param serviceServiceToServiceProviderses serviceServiceToServiceProviderses to set
    * @return ServiceFilter
    */
-  public <T extends ServiceFilter> T setServiceServiceProviderses(
-      List<ServiceProvider> serviceServiceProviderses) {
-    this.serviceServiceProviderses = serviceServiceProviderses;
+  public <T extends ServiceFilter> T setServiceServiceToServiceProviderses(
+      List<ServiceToServiceProvider> serviceServiceToServiceProviderses) {
+    this.serviceServiceToServiceProviderses = serviceServiceToServiceProviderses;
     return (T) this;
   }
 }

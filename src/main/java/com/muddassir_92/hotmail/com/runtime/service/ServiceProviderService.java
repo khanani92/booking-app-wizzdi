@@ -82,19 +82,21 @@ public class ServiceProviderService {
       update = true;
     }
 
-    if (serviceProviderCreate.getService() != null
-        && (serviceProvider.getService() == null
-            || !serviceProviderCreate
-                .getService()
-                .getId()
-                .equals(serviceProvider.getService().getId()))) {
-      serviceProvider.setService(serviceProviderCreate.getService());
+    if (serviceProviderCreate.getAddress() != null
+        && (!serviceProviderCreate.getAddress().equals(serviceProvider.getAddress()))) {
+      serviceProvider.setAddress(serviceProviderCreate.getAddress());
       update = true;
     }
 
     if (serviceProviderCreate.getGender() != null
         && (!serviceProviderCreate.getGender().equals(serviceProvider.getGender()))) {
       serviceProvider.setGender(serviceProviderCreate.getGender());
+      update = true;
+    }
+
+    if (serviceProviderCreate.getPhoneNumber() != null
+        && (!serviceProviderCreate.getPhoneNumber().equals(serviceProvider.getPhoneNumber()))) {
+      serviceProvider.setPhoneNumber(serviceProviderCreate.getPhoneNumber());
       update = true;
     }
 
